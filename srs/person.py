@@ -9,7 +9,7 @@ class Person:
     def __init__(self, gender, surname, name, middle_name,
                  death_year, death_month=None, death_day=None,
                  birth_year=None, birth_month=None, birth_day=None,
-                 photo=None):
+                 photo=None, grave_id=None, ):
         """ Конструктор для класса Person
 
         person_id: int: идентификационный номер персоны
@@ -24,6 +24,7 @@ class Person:
         death_month: str: месяц смерти
         death_day: str: день смерти
         photo: str: ссылка на фотографию
+        grave_id: Grave: идентификационный номер захоронения
         """
         self.person_id = self.get_new_id()
         self.gender = gender
@@ -37,20 +38,23 @@ class Person:
         self.birth_month = birth_month
         self.birth_day = birth_day
         self.photo = photo
+        self.grave_id = grave_id
 
     def get_new_id(self) -> int:
         """ Метод для получения ID нового объекта класса Person """
-        return max(self.id_list) + 1
+        if len(self.id_list) > 0:
+            return max(self.id_list) + 1
+        return 1
 
     @classmethod
     def add_new_person(cls, gender, surname, name, middle_name,
                  death_year, death_month=None, death_day=None,
                  birth_year=None, birth_month=None, birth_day=None,
-                 photo=None):
+                 photo=None, grave_id=None):
         """ Метод для добавления нового объекта класса Person """
         new_person = cls(gender, surname, name, middle_name,
                  death_year, death_month, death_day,
                  birth_year, birth_month, birth_day,
-                 photo)
+                 photo, grave_id)
         cls.id_list.append(new_person.person_id)
         return new_person

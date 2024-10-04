@@ -22,7 +22,9 @@ class Cemetery:
 
     def get_new_id(self) -> int:
         """ Метод для получения ID нового объекта класса Cemetery """
-        return max(self.id_list) + 1
+        if len(self.id_list) > 0:
+            return max(self.id_list) + 1
+        return 1
 
     @classmethod
     def add_new_cemetery(cls, name, address, coordinates=None):

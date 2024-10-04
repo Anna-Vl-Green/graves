@@ -6,13 +6,13 @@ class Grave:
 
     id_list = []
 
-    def __init__(self, cemetery, coordinates=None,
+    def __init__(self, cemetery_id=None, coordinates=None,
                  loc_row=None, loc_place=None, loc_grave=None,
                  is_exist=False, is_historical=False,
                  index_year=False):
         """ Конструктор для класса Grave
 
-        cemetery: Cemetery: класс Cemetery
+        cemetery_id: int: идентификационный номер кладбища
         grave_id: str: идентификационный номер захоронения
         coordinates: str: координаты
         loc_row: int: расположение захоронения (ряд)
@@ -24,7 +24,7 @@ class Grave:
         persons: list(Person): список персон
         """
         self.grave_id = self.get_new_id()
-        self.cemetery = cemetery
+        self.cemetery_id = cemetery_id
         self.loc_row = loc_row
         self.loc_place = loc_place
         self.loc_grave = loc_grave
@@ -36,13 +36,15 @@ class Grave:
 
     def get_new_id(self) -> int:
         """ Метод для получения ID нового объекта класса Grave """
-        return max(self.id_list) + 1
+        if len(self.id_list) > 0:
+            return max(self.id_list) + 1
+        return 1
 
     @classmethod
-    def add_new_grave(cls, cemetery, coordinates=None,
+    def add_new_grave(cls, cemetery_id=None, coordinates=None,
                       loc_row=None, loc_place=None, loc_grave=None,
                       is_exist=False, is_historical=False):
         """ Метод для добавления нового объекта класса Grave """
-        new_grave = cls(cemetery, coordinates, loc_row, loc_place, loc_grave, is_exist, is_historical)
+        new_grave = cls(cemetery_id, coordinates, loc_row, loc_place, loc_grave, is_exist, is_historical)
         cls.id_list.append(new_grave.grave_id)
         return new_grave
